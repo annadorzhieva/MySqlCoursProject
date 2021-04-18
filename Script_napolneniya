@@ -1,0 +1,57 @@
+USE ozon;
+
+INSERT INTO personal_account (id, first_name, last_name, email, phone, password_hash, birthday)
+VALUES -- (DEFAULT, 'Alex', 'Stepanov', 'alex@mail.com', '89258745', 'aaa', '1987-01-01');
+       (DEFAULT, 'Anna', 'Ivanova', 'anna@bk.ru', '892745678', 'bbb', '1990-02-01'),
+       (DEFAULT, 'Alina', 'Doronina', 'alina@mail.ru', '892578541', 'ccc', '1996-12-05'),
+       (DEFAULT, 'Danir', 'Manjeev', 'manjdan@yandex.ru', '89372596', 'cvv', '1988-05-28'),
+       (DEFAULT, 'Dayana', 'Son', 'dason@yandex.ru', '892214589', 'ddd', '1977-05-07'),
+       (DEFAULT, 'Vasilii', 'Petrov', 'vp@list.com', '892689754', 'dvd', '1965-03-03'),
+       (DEFAULT, 'Gleb', 'Manov', 'manov78@mail.com', '89987878', 'fff', '1999-04-14');
+
+SELECT * FROM category c ;
+
+INSERT INTO catalog_category (id, name) VALUES
+(DEFAULT, 'Электроника'),
+(DEFAULT, 'Одежда, обувь, аксессуары'),
+(DEFAULT, 'Дом и сад');
+
+INSERT INTO category (id, catalog_category_id, product_name, price, quantity) VALUES
+(DEFAULT, 1, 'Смартфон Honor 7A 2/16GB золотой', 5990, 3),
+(DEFAULT, 1, 'Смартфон Xiaomi Redmi 9C 3/64GB черный', 10435, 5),
+(DEFAULT, 1, 'Смартфон ОРРО А15 2/32GB черный', 8980, 12),
+(DEFAULT, 1, '4К UHD Телевизор Xiaomi Mi TV 4A 43"', 22990, 3),
+(DEFAULT, 1, 'HD Телевизор BQ 28S01B 28"', 9220, 4),
+(DEFAULT, 1, '14" Ноутбук HP 14s-fq0024ur черный', 28490, 4),
+(DEFAULT, 1, 'Электронная книга Digma R654 6" темно-серый', 4280, 2),
+(DEFAULT, 1, 'Холодильник Бирюса Б-110 белый', 11534, 5),
+(DEFAULT, 1, 'Холодильник Indesit DS 4160 S серебристый', 19219, 4),
+(DEFAULT, 1, 'Стиральная машина Candy CS4 1051D1/2-07 белый', 13390, 3),
+(DEFAULT, 1, 'Стиральная машина Samsung WF-60F1R2F2W белый', 21699, 4),
+(DEFAULT, 2, 'Спортивный костюм Blacksi', 3052, 3),
+(DEFAULT, 2, 'Спортивный костюм Marrengo', 4389, 4),
+(DEFAULT, 2, 'Кроссовки Puma Liberate Nitro Women Running Shoes', 9990, 4),
+(DEFAULT, 2, 'Сумка Sefaro', 2468, 3),
+(DEFAULT, 2, 'Платье Zolla', 1599, 1),
+(DEFAULT, 2, 'Сандалии Ecco Ecco Flora', 7490, 2),
+(DEFAULT, 2, 'Кольцо deValeur модель Соната из золота 585 пробы', 26013, 3),
+(DEFAULT, 3, 'Кстрюля Gipfel Mini нержавеющая сталь стекло 1,2 мл', 716, 4),
+(DEFAULT, 3, 'Сковорода Kukmara "Традиция" с266а 26см', 1433, 8),
+(DEFAULT, 3, 'Комплект постельного белья Candies 29 1.5 спальный сатин наволочка 70*70', 1867, 5),
+(DEFAULT, 3, 'Пододеялинк Атмосфера хлопок сатин люкс евро 200*200', 1540, 6),
+
+SELECT * FROM orders o ;
+
+INSERT INTO orders (orders_id, product_name_id, created_at) VALUES
+(DEFAULT, 1, '2021-02-04'),
+(DEFAULT, 1, '2021-02-23'),
+(DEFAULT, 2, '2021-03-15'),
+(DEFAULT, 2, '2021-03-20'),
+(DEFAULT, 3, '2021-04-04'),
+(DEFAULT, 2, '2021-02-10'),
+(DEFAULT, 1, '2021-03-04'),
+(DEFAULT, 2, '2021-04-15'); -- здесь не всё добавляется
+
+
+
+

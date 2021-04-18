@@ -1,0 +1,96 @@
+CREATE DATABASE ozon;
+
+USE ozon;
+
+SHOW tables;
+
+CREATE TABLE personal_account( -- личный кабинет на сайте
+  id BIGINT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+  first_name VARCHAR(145) NOT NULL,
+  last_name VARCHAR(145) NOT NULL,
+  email VARCHAR(145) NOT NULL,
+  phone INT UNSIGNED NOT NULL,
+  password_hash CHAR(65) DEFAULT NULL,
+  created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  UNIQUE INDEX email_unique (email),
+  UNIQUE INDEX phone_unique (phone)
+) ENGINE=InnoDB;
+
+ALTER TABLE personal_account ADD COLUMN birthday date NOT NULL
+
+DESCRIBE personal_account;
+
+
+CREATE TABLE notification( -- уведомления
+  id bigint UNSIGNED NOT NULL,
+  txt TEXT NOT NULL, -- текст уведомления
+  is_delivered BOOLEAN DEFAULT False, -- доставлено или нет
+  created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  updated_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+  CONSTRAINT fk_notofication_personal_account FOREIGN KEY (id) REFERENCES personal_account (id)
+);
+
+CREATE TABLE messages (
+  id BIGINT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
+  from_personal_account_id BIGINT UNSIGNED NOT NULL, -- сообщение пользователя к Озон
+  to_personal_account_id BIGINT UNSIGNED NOT NULL, -- сообщение Озон пользователю
+  txt TEXT NOT NULL,
+  is_delivered BOOLEAN DEFAULT False,
+  created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  updated_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+  INDEX fk_messages_from_user_idx (from_personal_account_id),
+  INDEX fk_messages_to_user_idx (to_personal_account_id),
+  CONSTRAINT fk_messages_personal_account_1 FOREIGN KEY (from_personal_account_id) REFERENCES personal_account (id),
+  CONSTRAINT fk_messages_personal_account_2 FOREIGN KEY (to_personal_account_id) REFERENCES personal_account (id)
+);
+
+CREATE TABLE ozon_account ( -- озон.счёт
+  id bigint UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
+  number_account_id bigint UNSIGNED NOT NULL UNIQUE,
+  INDEX fk_ozon_account_number_account_idx (number_account_id),
+  CONSTRAINT fk_ozon_account_personal_account FOREIGN KEY (number_account_id) REFERENCES personal_account (id)
+);
+
+CREATE TABLE catalog_category (
+  id INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
+  name varchar(145) NOT NULL -- электроника, одежда обувь аксессуары, дом и сад, детские товары и т.д. по катенорям
+) ENGINE=InnoDB;
+
+CREATE TABLE category (
+  id BIGINT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY, -- телефоны и смарт часы
+  catalog_category_id INT UNSIGNED NOT NULL, -- смартфоны
+  product_name VARCHAR(245) DEFAULT NULL, -- смартфон Honor 7A 2/16GB, золотой
+  price BIGINT DEFAULT NULL,
+  quantity int DEFAULT NULL,
+  INDEX fk_catalog_category_category_idx (catalog_category_id),
+  CONSTRAINT fk_catalog_category_category FOREIGN KEY (catalog_category_id) REFERENCES catalog_category (id)
+);
+
+CREATE TABLE orders ( -- заказы
+  orders_id BIGINT UNSIGNED NOT NULL AUTO_INCREMENT UNIQUE,
+  product_name_id bigint UNSIGNED NOT NULL,
+  created_at datetime NOT NULL,
+  accepted boolean DEFAULT FALSE,
+  CONSTRAINT fk_personal_account_orders FOREIGN KEY (orders_id) REFERENCES personal_account (id)
+);
+
+CREATE TABLE favorites ( -- избранное
+  favorites_id BIGINT UNSIGNED NOT NULL AUTO_INCREMENT,
+  name varchar(145),
+  created_at datetime NOT NULL,
+  CONSTRAINT fk_personal_account_favorites FOREIGN KEY (favorites_id) REFERENCES personal_account (id)
+);
+
+CREATE TABLE basket ( -- корзина
+  name_products_id bigint UNSIGNED NOT NULL AUTO_INCREMENT UNIQUE,
+  add_basket boolean DEFAULT FALSE,
+  add_date datetime NOT NULL,
+  CONSTRAINT fk_personal_account_basket FOREIGN KEY (name_products_id) REFERENCES personal_account (id)
+  );
+
+ CREATE TABLE reviews (
+   id bigint UNSIGNED NOT NULL AUTO_INCREMENT UNIQUE,
+   txt text NOT NULL,
+   created_at datetime NOT NULL
+ );
+
