@@ -40,6 +40,7 @@ INSERT INTO category (id, catalog_category_id, product_name, price, quantity) VA
 (DEFAULT, 3, 'Комплект постельного белья Candies 29 1.5 спальный сатин наволочка 70*70', 1867, 5),
 (DEFAULT, 3, 'Пододеялинк Атмосфера хлопок сатин люкс евро 200*200', 1540, 6),
 
+
 SELECT * FROM orders o ;
 
 INSERT INTO orders (orders_id, product_name_id, created_at) VALUES
