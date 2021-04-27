@@ -53,6 +53,20 @@ INSERT INTO orders (orders_id, product_name_id, created_at) VALUES
 (DEFAULT, 1, '2021-03-04'),
 (DEFAULT, 2, '2021-04-15'); -- здесь не всё добавляется
 
+-- запрос: кто из пользователей делал заказы на сайте Озон
+SELECT personal_account.first_name, personal_account.last_name, orders.orders_id AS orders
+FROM personal_account
+INNER JOIN
+	 orders ON personal_account.id = orders.orders_id
+;
+
+-- кто из пользователей делал определённый заказ на категорию товара (не уверена что правильно сформулировала и реализовала)
+SELECT personal_account.first_name, personal_account.last_name, category.catalog_category_id AS catalogs
+FROM personal_account
+INNER JOIN
+	 category ON personal_account.id = category.catalog_category_id
+;
+
 
 
 
